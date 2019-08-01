@@ -129,7 +129,6 @@ func handleAPIUploaded(w http.ResponseWriter, story uploadResponse) {
 	storyURL := fmt.Sprintf("https://vk.com/story%d_%d", story.Response.Story.OwnerID, story.Response.Story.ID)
 
 	response := apiResponse{
-		Response: 1,
 		StoryURL: storyURL,
 	}
 
