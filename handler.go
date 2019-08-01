@@ -9,6 +9,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"unicode/utf8"
 )
 
 type apiResponse struct {
@@ -226,8 +227,10 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if len(reviewQuery) > appconfig.MaxReviewLength {
-		handleAPIError(len(reviewQuery), apiErrorReviewTooLong, w)
+	reviewLen := utf8.RuneCountInString(reviewQuery)
+
+	if reviewLen > appconfig.MaxReviewLength {
+		handleAPIError(123, apiErrorReviewTooLong, w)
 		return
 	}
 
