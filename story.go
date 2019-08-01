@@ -108,7 +108,7 @@ func makeRatingStar(color string) *imagick.MagickWand {
 	}
 
 	starShapeImage := imagick.NewMagickWand()
-	err = starShapeImage.ReadImage("images/assets/star.png")
+	err = starShapeImage.ReadImageBlob(starBin)
 	if err != nil {
 		panic(err)
 	}
@@ -290,7 +290,7 @@ func makeStory(title, posterPath, backgroundPath, review string, rating int) str
 	posterWidth := posterImage.GetImageWidth()
 
 	posterShapeImage := imagick.NewMagickWand()
-	err = posterShapeImage.ReadImage("images/assets/poster.png")
+	err = posterShapeImage.ReadImageBlob(posterBin)
 	if err != nil {
 		panic(err)
 	}

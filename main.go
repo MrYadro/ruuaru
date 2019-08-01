@@ -14,6 +14,8 @@ import (
 var (
 	appconfig   = AppConfig{}
 	letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	posterBin   []byte
+	starBin     []byte
 )
 
 const (
@@ -58,6 +60,10 @@ func init() {
 	appconfig = GetAppConfig("config.json")
 	imagick.Initialize()
 	defer imagick.Terminate()
+
+	starBin, _ = ioutil.ReadFile("images/assets/star.png")
+
+	posterBin, _ = ioutil.ReadFile("images/assets/poster.png")
 }
 
 func main() {
