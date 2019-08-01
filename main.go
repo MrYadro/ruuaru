@@ -59,7 +59,7 @@ func init() {
 
 func main() {
 	log.Println("Starting RUUARU...")
-	log.Printf("Debug: %t, Max review length: %t, Upload: %t", appconfig.Debug, appconfig.MaxReviewLength, appconfig.Upload)
+	log.Printf("Debug: %t, Max review length: %d, Upload: %t", appconfig.Debug, appconfig.MaxReviewLength, appconfig.Upload)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", handleAPI)
