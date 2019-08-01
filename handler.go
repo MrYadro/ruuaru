@@ -129,6 +129,7 @@ func handleAPIUploaded(w http.ResponseWriter, story uploadResponse) {
 
 	response := apiResponse{
 		StoryURL: storyURL,
+		Response: 1,
 	}
 
 	handleResponse(response, true, w)
@@ -234,6 +235,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 	if appconfig.Upload {
 		uploadResp := sendStoryToVK(filename, storyURLQuery)
 		handleAPIUploaded(w, uploadResp)
+		return
 	}
 
 	handleAPIOk(w)
