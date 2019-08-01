@@ -35,7 +35,6 @@ const (
 	apiErrorPosterWrong      = "poster_url should /somestring.jpg"
 	apiErrorRatingWrongType  = "rating is not a number"
 	apiErrorRatingWrongValue = "rating is less than 1 or more than 5"
-	apiErrorReviewTooLong    = "review too long"
 	apiErrorIDWrong          = "id is not a number"
 )
 

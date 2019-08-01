@@ -352,25 +352,25 @@ func makeStory(title, posterPath, backgroundPath, reviewLine1, reviewLine2, revi
 			pw.SetColor("#fff")
 			dw.SetFillColor(pw)
 			dw.SetTextAlignment(imagick.ALIGN_CENTER)
-			dw.Annotation(1080/2, 1660, reviewLine2)
+			dw.Annotation(1080/2, 1625, reviewLine2)
 
 			if len(reviewLine3) != 0 {
 				pw.SetColor("#fff")
 				dw.SetFillColor(pw)
 				dw.SetTextAlignment(imagick.ALIGN_CENTER)
-				dw.Annotation(1080/2, 1760, reviewLine3)
+				dw.Annotation(1080/2, 1690, reviewLine3)
 
 				textMetrics := mw.QueryFontMetrics(dw, reviewLine3)
 				pw.SetColor("#9a9a9a")
 				dw.SetFillColor(pw)
 				dw.SetTextAlignment(imagick.ALIGN_LEFT)
-				dw.Annotation((1080+textMetrics.TextWidth)/2, 1760, "”")
+				dw.Annotation((1080+textMetrics.TextWidth)/2, 1690, "”")
 			} else {
 				textMetrics := mw.QueryFontMetrics(dw, reviewLine2)
 				pw.SetColor("#9a9a9a")
 				dw.SetFillColor(pw)
 				dw.SetTextAlignment(imagick.ALIGN_LEFT)
-				dw.Annotation((1080+textMetrics.TextWidth)/2, 1660, "”")
+				dw.Annotation((1080+textMetrics.TextWidth)/2, 1625, "”")
 			}
 		} else {
 			textMetrics := mw.QueryFontMetrics(dw, reviewLine1)
