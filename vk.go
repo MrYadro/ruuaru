@@ -62,7 +62,7 @@ func postFile(filename string, targetUrl string) uploadResponse {
 }
 
 func sendStoryToVK(filename, uploadUrl string) uploadResponse {
-	storyFile := fmt.Sprintf("tmp/%s.png", filename)
+	storyFile := fmt.Sprintf("tmp/%s", filename)
 
 	uploadResp := postFile(storyFile, uploadUrl)
 
