@@ -17,7 +17,6 @@ var (
 )
 
 const (
-	maxReviewLegth       = 5
 	imagesPatch          = "https://image.tmdb.org/t/p/"
 	storyHeight     uint = 1920
 	storyWidth      uint = 1080
@@ -34,9 +33,9 @@ func RandStringBytes(n int) string {
 }
 
 type AppConfig struct {
-	Debug     bool `json:"debug"`
-	ShareLink bool `json:"share_link"`
-	Upload    bool `json:"upload"`
+	Debug           bool `json:"debug"`
+	Upload          bool `json:"upload"`
+	MaxReviewLength int  `json:"max_length"`
 }
 
 func GetAppConfig(fname string) AppConfig {
@@ -60,7 +59,7 @@ func init() {
 
 func main() {
 	log.Println("Starting RUUARU...")
-	log.Printf("Debug: %t, Share link: %t, Upload: %t", appconfig.Debug, appconfig.ShareLink, appconfig.Upload)
+	log.Printf("Debug: %t, Max review length: %t, Upload: %t", appconfig.Debug, appconfig.MaxReviewLength, appconfig.Upload)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", handleAPI)

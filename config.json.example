@@ -1,4 +1,5 @@
 {
-    "debug": true,
-    "upload": false
+    "debug": false,
+    "upload": false,
+    "max_length": 10
 }

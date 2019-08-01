@@ -226,7 +226,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if len(reviewQuery) > maxReviewLegth {
+	if len(reviewQuery) > appconfig.MaxReviewLength {
 		handleAPIError(123, apiErrorReviewTooLong, w)
 		return
 	}
