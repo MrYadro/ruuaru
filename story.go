@@ -341,6 +341,16 @@ func makeStory(title, posterPath, backgroundPath, review string, rating int) str
 	dw.SetTextAlignment(imagick.ALIGN_CENTER)
 	dw.Annotation(1080/2, 1560, review)
 
+	textMetrics := mw.QueryFontMetrics(dw, review)
+
+	pw.SetColor("#9a9a9a")
+	dw.SetFillColor(pw)
+	dw.SetTextAlignment(imagick.ALIGN_LEFT)
+	dw.Annotation((1080+textMetrics.TextWidth)/2, 1560, "”")
+
+	dw.SetTextAlignment(imagick.ALIGN_RIGHT)
+	dw.Annotation((1080-textMetrics.TextWidth)/2, 1560, "“")
+
 	err = mw.DrawImage(dw)
 	if err != nil {
 		panic(err)
