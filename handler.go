@@ -137,7 +137,7 @@ func handleAPIUploaded(w http.ResponseWriter, story uploadResponse) {
 }
 
 func handleAPI(w http.ResponseWriter, r *http.Request) {
-	log.Println("Got request")
+	log.Println("Got request", r.RequestURI)
 	defer r.Body.Close()
 
 	query := r.URL.Query()
