@@ -33,9 +33,12 @@ func RandStringBytes(n int) string {
 }
 
 type AppConfig struct {
-	Debug           bool `json:"debug"`
-	Upload          bool `json:"upload"`
-	MaxReviewLength int  `json:"max_length"`
+	Debug           bool   `json:"debug"`
+	UseSSL          bool   `json:"use_ssl"`
+	SSLCertFile     string `json:"ssl_cert"`
+	SSLKeyFile      string `json:"ssl_key"`
+	Upload          bool   `json:"upload"`
+	MaxReviewLength int    `json:"max_length"`
 }
 
 func GetAppConfig(fname string) AppConfig {
@@ -67,9 +70,9 @@ func main() {
 		Addr:    ":3333",
 		Handler: cors.Default().Handler(mux),
 	}
-	if appconfig.Debug {
+	if appconfig.UseSSL {
 		log.Fatal(srv.ListenAndServe())
 	} else {
-		log.Fatal(srv.ListenAndServeTLS("/etc/letsencrypt/live/heybugs.icu/cert.pem", "/etc/letsencrypt/live/heybugs.icu/privkey.pem"))
+		log.Fatal(srv.ListenAndServeTLS(appconfig.SSLCertFile, appconfig.SSLKeyFile))
 	}
 }

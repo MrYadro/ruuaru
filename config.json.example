@@ -1,5 +1,8 @@
 {
     "debug": false,
+    "use_ssl": false,
+    "ssl_cert": "",
+    "ssl_key": "",
     "upload": false,
     "max_length": 10
 }
