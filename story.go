@@ -331,7 +331,7 @@ func makeStory(title, posterPath, backgroundPath, review string, rating int) str
 
 	movieTitle.Destroy()
 
-	err = dw.SetFont("TT-Commons-Italic")
+	err = dw.SetFont("TT-Commons-BoldItalic")
 	if err != nil {
 		panic(err)
 	}
