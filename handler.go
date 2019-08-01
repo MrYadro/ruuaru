@@ -151,7 +151,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 	storyURLQuery := query.Get("story_url")
 	reviewQuery := query.Get("review")
 
-	reImageURL := regexp.MustCompile(`\/\w+.jpg$`)
+	reImageURL := regexp.MustCompile(`^\/\w+.jpg$`)
 
 	log.Println(r.RemoteAddr, typeQuery, idQuery, backdropURLQuery, posterURLQuery, ratingQuery, titleQuery, storyURLQuery, reviewQuery)
 
