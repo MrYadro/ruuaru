@@ -221,7 +221,7 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if storyURLQuery == "" {
+	if storyURLQuery == "" && appconfig.Upload {
 		handleAPIError(123, apiErrorStoryMissing, w)
 		return
 	}
