@@ -227,7 +227,7 @@ func makeStoryText(fgColor, bgColor, text string) *imagick.MagickWand {
 	return mw
 }
 
-func makeStory(title, posterPath, backgroundPath, review string, rating int) string {
+func makeStory(title, posterPath, backgroundPath, reviewLine1, reviewLine2, reviewLine3 string, rating int) string {
 	mw := imagick.NewMagickWand()
 	defer mw.Destroy()
 	dw := imagick.NewDrawingWand()
@@ -331,7 +331,7 @@ func makeStory(title, posterPath, backgroundPath, review string, rating int) str
 
 	movieTitle.Destroy()
 
-	if len(review) != 0 {
+	if len(reviewLine1) != 0 {
 		err = dw.SetFont("TT-Commons-Bold-Italic")
 		if err != nil {
 			panic(err)
@@ -340,17 +340,45 @@ func makeStory(title, posterPath, backgroundPath, review string, rating int) str
 		pw.SetColor("#fff")
 		dw.SetFillColor(pw)
 		dw.SetTextAlignment(imagick.ALIGN_CENTER)
-		dw.Annotation(1080/2, 1560, review)
+		dw.Annotation(1080/2, 1560, reviewLine1)
 
-		textMetrics := mw.QueryFontMetrics(dw, review)
+		textMetrics := mw.QueryFontMetrics(dw, reviewLine1)
 
 		pw.SetColor("#9a9a9a")
 		dw.SetFillColor(pw)
-		dw.SetTextAlignment(imagick.ALIGN_LEFT)
-		dw.Annotation((1080+textMetrics.TextWidth)/2, 1560, "”")
-
 		dw.SetTextAlignment(imagick.ALIGN_RIGHT)
 		dw.Annotation((1080-textMetrics.TextWidth)/2, 1560, "“")
+		if len(reviewLine2) != 0 {
+			pw.SetColor("#fff")
+			dw.SetFillColor(pw)
+			dw.SetTextAlignment(imagick.ALIGN_CENTER)
+			dw.Annotation(1080/2, 1660, reviewLine2)
+
+			if len(reviewLine3) != 0 {
+				pw.SetColor("#fff")
+				dw.SetFillColor(pw)
+				dw.SetTextAlignment(imagick.ALIGN_CENTER)
+				dw.Annotation(1080/2, 1760, reviewLine3)
+
+				textMetrics := mw.QueryFontMetrics(dw, reviewLine3)
+				pw.SetColor("#9a9a9a")
+				dw.SetFillColor(pw)
+				dw.SetTextAlignment(imagick.ALIGN_LEFT)
+				dw.Annotation((1080+textMetrics.TextWidth)/2, 1760, "”")
+			} else {
+				textMetrics := mw.QueryFontMetrics(dw, reviewLine2)
+				pw.SetColor("#9a9a9a")
+				dw.SetFillColor(pw)
+				dw.SetTextAlignment(imagick.ALIGN_LEFT)
+				dw.Annotation((1080+textMetrics.TextWidth)/2, 1660, "”")
+			}
+		} else {
+			textMetrics := mw.QueryFontMetrics(dw, reviewLine1)
+			pw.SetColor("#9a9a9a")
+			dw.SetFillColor(pw)
+			dw.SetTextAlignment(imagick.ALIGN_LEFT)
+			dw.Annotation((1080+textMetrics.TextWidth)/2, 1560, "”")
+		}
 	}
 
 	err = mw.DrawImage(dw)

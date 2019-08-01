@@ -9,7 +9,6 @@ import (
 	"os"
 	"regexp"
 	"strconv"
-	"unicode/utf8"
 )
 
 type apiResponse struct {
@@ -127,7 +126,7 @@ func handleAPIOk(w http.ResponseWriter) {
 }
 
 func handleAPIUploaded(w http.ResponseWriter, story uploadResponse) {
-	storyURL := fmt.Sprintf("https://vk.com/%d_%d", story.Response.Story.OwnerID, story.Response.Story.ID)
+	storyURL := fmt.Sprintf("https://vk.com/story%d_%d", story.Response.Story.OwnerID, story.Response.Story.ID)
 
 	response := apiResponse{
 		Response: 1,
@@ -150,11 +149,13 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 	ratingQuery := query.Get("rating")
 	titleQuery := query.Get("title")
 	storyURLQuery := query.Get("story_url")
-	reviewQuery := query.Get("review")
+	line1Query := query.Get("line1")
+	line2Query := query.Get("line2")
+	line3Query := query.Get("line3")
 
 	reImageURL := regexp.MustCompile(`^\/\w+.jpg$`)
 
-	log.Println(r.RemoteAddr, typeQuery, idQuery, backdropURLQuery, posterURLQuery, ratingQuery, titleQuery, storyURLQuery, reviewQuery)
+	log.Println(r.RemoteAddr, typeQuery, idQuery, backdropURLQuery, posterURLQuery, ratingQuery, titleQuery, storyURLQuery, line1Query, line2Query, line3Query)
 
 	// http://localhost:3333/?type=movie&id=500&backdrop_url=/mMZRKb3NVo5ZeSPEIaNW9buLWQ0.jpg&poster_url=/adw6Lq9FiC9zjYEpOqfq03ituwp.jpg&rating=5&title=hey&story_url=https://vvv.ru&review=cool movie
 
@@ -227,17 +228,10 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	reviewLen := utf8.RuneCountInString(reviewQuery)
-
-	if reviewLen > appconfig.MaxReviewLength {
-		handleAPIError(123, apiErrorReviewTooLong, w)
-		return
-	}
-
 	downloadImages(typeQuery, id, backdropURLQuery, posterURLQuery)
 	posterPath := fmt.Sprintf("images/%s/%d%s", typeQuery, id, posterURLQuery)
 	backdropPath := fmt.Sprintf("images/%s/%d%s", typeQuery, id, backdropURLQuery)
-	filename := makeStory(titleQuery, posterPath, backdropPath, reviewQuery, rating)
+	filename := makeStory(titleQuery, posterPath, backdropPath, line1Query, line2Query, line3Query, rating)
 
 	if appconfig.Upload {
 		uploadResp := sendStoryToVK(filename, storyURLQuery)
