@@ -9,6 +9,7 @@ import (
 	"os"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 type apiResponse struct {
@@ -226,6 +227,10 @@ func handleAPI(w http.ResponseWriter, r *http.Request) {
 		handleAPIError(123, apiErrorStoryMissing, w)
 		return
 	}
+
+	line1Query = strings.TrimSpace(line1Query)
+	line2Query = strings.TrimSpace(line2Query)
+	line3Query = strings.TrimSpace(line3Query)
 
 	downloadImages(typeQuery, id, backdropURLQuery, posterURLQuery)
 	posterPath := fmt.Sprintf("images/%s/%d%s", typeQuery, id, posterURLQuery)
