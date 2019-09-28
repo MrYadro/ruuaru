@@ -76,9 +76,5 @@ func main() {
 		Addr:    ":3333",
 		Handler: cors.Default().Handler(mux),
 	}
-	if !appconfig.UseSSL {
-		log.Fatal(srv.ListenAndServe())
-	} else {
-		log.Fatal(srv.ListenAndServeTLS(appconfig.SSLCertFile, appconfig.SSLKeyFile))
-	}
+    log.Fatal(srv.ListenAndServe())
 }
